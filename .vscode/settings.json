@@ -1,0 +1,11 @@
+{
+    "rest-client.environmentVariables": {
+        
+        "sandbox": {
+            "baseUrl" : "https://kitsu.io",
+        },
+        "production": {
+            
+        }
+    }
+}
