@@ -3,6 +3,6 @@
 
 
 ###
-GET {{baseUrl}}/api/edge/manga/14916
+POST {{baseUrl}}/anime?filter[categories]=adventure
 
 
