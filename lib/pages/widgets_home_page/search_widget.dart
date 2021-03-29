@@ -1,6 +1,28 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-class BuildSearch extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:gif_browser/consts/strings_data.dart';
+import 'package:gif_browser/pages/list_anime_page.dart';
+import 'package:http/http.dart' as http;
+
+class BuildSearch extends StatefulWidget {
+  @override
+  _BuildSearchState createState() => _BuildSearchState();
+}
+
+class _BuildSearchState extends State<BuildSearch> {
+  String name;
+
+  void getDataAnime() async {
+    http.Response response = await http.get(Uri.parse(Strings.kApiPath + name));
+    var jsonResponse = jsonDecode(response.body);
+    if (response.statusCode == 200) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ListAnimePage(animeData: jsonResponse, searchText: name);
+      }));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _widthDisplay = MediaQuery.of(context).size.width;
@@ -9,11 +31,16 @@ class BuildSearch extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4),
           child: TextField(
+            onChanged: (value) {
+              setState(() {
+                name = value;
+              });
+            },
             decoration: InputDecoration(
               icon: Icon(Icons.search),
               border: OutlineInputBorder(),
-              labelText: 'Manga',
-              hintText: 'Enter Your Title Manga',
+              labelText: 'Anime',
+              hintText: 'Enter Your Title Anime',
             ),
           ),
         ),
@@ -24,7 +51,11 @@ class BuildSearch extends StatelessWidget {
               primary: Colors.greenAccent, // background
               onPrimary: Colors.white, // foreground
             ),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                getDataAnime();
+              });
+            },
             child: Container(
               height: 40,
               width: _widthDisplay,

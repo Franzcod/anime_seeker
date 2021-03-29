@@ -1,4 +1,4 @@
-package com.example.gif_browser
+package com.example.manga_seeker
 
 import io.flutter.embedding.android.FlutterActivity
 

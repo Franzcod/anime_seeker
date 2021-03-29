@@ -1,4 +1,4 @@
-# gif_browser
+# Manga_Seeker
 
 A new Flutter project.
 
